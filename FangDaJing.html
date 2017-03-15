@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            padding:0;
+            margin:0;
+        }
+        .small{
+            width: 240px;
+            height: 180px;
+            float: left;
+            position: relative;
+        }
+        .small img{
+            width: 100%;
+        }
+        .big{
+            width: 600px;
+            height:400px;
+            float: left;
+            display: none;
+            position: relative;
+            overflow: hidden;
+        }
+        .img{
+            position: absolute;
+        }
+        .move{
+            width: 60px;
+            height: 40px;
+            background: orange;
+            opacity: 0.4;
+            position: absolute;
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+<div class="small">
+    <img src="libai.jpg" alt="李白"/>
+    <div class="move"></div>
+</div>
+<div class="big">
+    <img src="libai.jpg" alt="" style="width: 2400px" class="img"/>
+</div>
+
+<script>
+    var small=document.getElementsByClassName("small").item(0);
+    var big=document.getElementsByClassName("big").item(0);
+    var move=document.getElementsByClassName("move").item(0);
+    var img=document.getElementsByClassName("img").item(0);
+    small.onmousemove= function (e) {
+        //当鼠标移动时，小移动方块和大的显示方块显示
+        move.style.display="block";
+        big.style.display="block";
+        //为了防止鼠标在移出时因为事件冒泡带来的一系列问题
+        //对移动方块的 位置进行判断处理，小方块在到达父元素的边界时，给定值
+        var top=e.clientY-30;
+        var left=e.clientX-20;
+        if(top<=0){
+            top=0;
+        }
+        if(top>=140){
+            top=140;
+        }
+        if(left<=0){
+            left=0;
+        }
+        if(left>=180){
+            left=180;
+        }
+        //对小方块和展示方块的位置做相关处理
+        move.style.top= top+"px";
+        move.style.left= left+"px";
+        img.style.top=-top*10+"px";
+        img.style.left=-left*10+"px";
+
+    };
+    //对鼠标移出做处理
+    big.onmouseover= function () {
+        big.style.display="block";
+    };
+    small.onmouseout= function () {
+        move.style.display="none";
+        big.style.display="none";
+    };
+    big.onmouseout= function () {
+        big.style.display="none";
+    }
+
+
+</script>
+</body>
+</html>
